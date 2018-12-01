@@ -26,8 +26,7 @@ void setup()
 void loop() 
 {
 	lcd.setCursor(0, 1);
-	rawtime=millis()/1000+( (starth*60+startm)*60+starts);
-	//discard the milliseconds
+	rawtime=millis()/1000+( (starth*60+startm)*60+starts);	//discard the milliseconds
 	seconds=rawtime%60;
 	rawtime=rawtime/60;
 	minutes=rawtime%60;
@@ -57,7 +56,7 @@ void loop()
 	{
 		h=String(hours);
 	}
-	if(seconds%2)
+	if(!seconds%2)
 		lcd.print(h+":"+m+":"+s);
 	else
 		lcd.print(h+" "+m+" "+s);
