@@ -9,17 +9,13 @@ int pauseBetweenNotes, thisNote,day,month,year,dow,dated;
 long int starth,startm,starts,rawtime,seconds,minutes,hours;
 String h,m,s,d,mm,y;
 
-int melody[] = {
-NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
-};
-
-int noteDurations[] = {
-4, 8, 8, 4, 4, 4, 4, 4
-};
+int melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
+int noteDurations[] = {4, 8, 8, 4, 4, 4, 4, 4};
+int dates[] = {31,28,31,30,31,30,31,31,30,31,30,31,29};
 
 String days[] = {"Mon", "Die", "Mit", "Don", "Fre", "Sam", "Son"};
 String months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec","Feb"};
-int dates[] = {31,28,31,30,31,30,31,31,30,31,30,31,29};
+
 
 void printDate();
 void printTime();
