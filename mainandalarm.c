@@ -108,12 +108,8 @@ void printDate()
 		d="0"+String(day);
 	else
 		d=String(day);
-	if(month<10)
-		mm="0"+String(month);
-	else
-		mm=String(month);
 	y=String(year);
-	lcd.print(days[dow]+","+d+"-"+mm+"-"+y);
+	lcd.print(days[dow]+","+d+"-"+months[month-1]+"-"+y);
 }
 
 void printTime()
