@@ -25,9 +25,9 @@ void setup()
 {
 	//set initial date
 	dow=1;
-	day=25;
-	month=12;
-	year=2018;
+	day=5;
+	month=3;
+	year=2019;
 	//set initial time
 	starth=23;
 	startm=59;
@@ -68,6 +68,7 @@ void loop()
 				year++;
 			}
 		}
+		lcd.begin(16,2);	//resets the LCD every 24 hours
 		lcd.setCursor(0,0);
 		printDate();
 		dated++;
