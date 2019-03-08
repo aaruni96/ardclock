@@ -6,8 +6,8 @@
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 int pauseBetweenNotes, thisNote,day,month,year,dow,dated;
-long int starth,startm,starts,rawtime,seconds,minutes,hours;
-String h,m,s,d,mm,y;
+long int starth,startm,starts,rawtime,seconds,minutes,hours,homehours,homeminutes;
+String h,hh,m,mh,s,d,mm,y;
 
 int melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
 int noteDurations[] = {4, 8, 8, 4, 4, 4, 4, 4};
@@ -50,8 +50,10 @@ void loop()
 	seconds=rawtime%60;
 	rawtime=rawtime/60;
 	minutes=rawtime%60;
+	homeminutes=(minutes+30)%60;
 	rawtime=rawtime/60;
 	hours=rawtime%24;
+	homehours=(hours+4)%24;
 	if(!hours && !minutes && !seconds && !dated)
 	{
 		dow++;
@@ -139,8 +141,25 @@ void printTime()
 	{
 		h=String(hours);
 	}
-	if(seconds%2)
-		lcd.print(h+":"+m+":"+s);
+	if(homeminutes<10)
+	{
+		hm="0"+String(homeminutes);
+	}
 	else
-		lcd.print(h+" "+m+" "+s);
+	{
+		hm=String(homeminutes);
+	}
+	if(homehours<10)
+	{
+		hh="0"+String(homehours);
+	}
+	else
+	{
+		hh=String(homehours);
+	}
+	if(seconds%2)
+		lcd.print(h+":"+m+":"+s+"   ");
+	else
+		lcd.print(h+" "+m+" "+s+"   ");
+	lcd.print(hh+":"+hm);
 }
