@@ -7,7 +7,7 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 int pauseBetweenNotes, thisNote,day,month,year,dow,dated;
 long int starth,startm,starts,rawtime,seconds,minutes,hours,homehours,homeminutes;
-String h,hh,m,mh,s,d,mm,y;
+String h,hh,m,hm,s,d,mm,y;
 
 int melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
 int noteDurations[] = {4, 8, 8, 4, 4, 4, 4, 4};
@@ -50,10 +50,15 @@ void loop()
 	seconds=rawtime%60;
 	rawtime=rawtime/60;
 	minutes=rawtime%60;
-	homeminutes=(minutes+30)%60;
+	homeminutes=(minutes+30);
 	rawtime=rawtime/60;
 	hours=rawtime%24;
-	homehours=(hours+4)%24;
+	homehours=(hours+4);
+	if(homeminutes>60)
+	{
+		homeminutes=homeminutes%60;
+		homehours++;
+	}
 	if(!hours && !minutes && !seconds && !dated)
 	{
 		dow++;
