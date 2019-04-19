@@ -54,11 +54,13 @@ void loop()
 	rawtime=rawtime/60;
 	hours=rawtime%24;
 	homehours=(hours+4);
+	homehours%=24;
 	if(homeminutes>60)
 	{
 		homeminutes=homeminutes%60;
 		homehours++;
 	}
+	homehours=homehours%24;
 	if(!hours && !minutes && !seconds && !dated)
 	{
 		dow++;
