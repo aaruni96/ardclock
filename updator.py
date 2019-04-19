@@ -7,6 +7,7 @@ import requests
 
 COMPORT="/dev/ttyACM0"				#Arduino goes here
 AppID=""	#Openweather API
+CityID=""	#Openweather City ID
 ser = serial.Serial(COMPORT)
 
 def sendTime() :
@@ -27,7 +28,7 @@ def sendTime() :
 	ser.write(str(now.tm_wday).encode())
 
 def sendWeather():
-	data = json.loads(requests.get('http://api.openweathermap.org/data/2.5/weather?id=2894003&appid='+AppID).content.decode('utf-8'))
+	data = json.loads(requests.get('http://api.openweathermap.org/data/2.5/weather?id='+CityID+'appid='+AppID).content.decode('utf-8'))
 	ser.write(b'\x02')			#intent to send temp
 	ser.write(str(int(data['main']['temp']-273.15)).encode())
 	
