@@ -3,7 +3,7 @@ Arduino based Wall Clock
 
 A simple arduino based wall clock system.
 
-Currently only counts time from the internal timer of the Arduino Uno board, has a buzzer unit, and displays output on an LCD screen.
+Currently counts time, recives time and weather on the hour via a PC companion app, and can ask for time/weather update. More update to follow!
 
 To do:
 
