@@ -8,9 +8,13 @@ import requests
 COMPORT="/dev/ttyACM0"				#Arduino goes here
 AppID=""	#Openweather API
 CityID=""	#Openweather City ID
-ser = serial.Serial(COMPORT)
+ser = serial.Serial(COMPORT, timeout=2)
+
+now = time.localtime(time.time())
+oldhour=now.tm_hour
 
 def sendTime() :
+	global now
 	now = time.localtime(time.time())
 	ser.write(b'\x01')			#broadcast intent to send time
 	ser.write(str(now.tm_sec).encode())
@@ -34,6 +38,17 @@ def sendWeather():
 	
 
 while (1):
-	sendTime()
-	sendWeather()
-	time.sleep(3600)
+	#check for incoming request
+	if(ser.read(12).decode() == "Give me time"):
+		print("Request for time recieved at "+str(now.tm_year)+"-"+str(now.tm_mon)+"-"+str(now.tm_mday)+" "+str(now.tm_hour)+':'+str(now.tm_min)+':'+str(now.tm_sec))
+		sendTime()
+		print("Time update sent at "+str(now.tm_year)+"-"+str(now.tm_mon)+"-"+str(now.tm_mday)+" "+str(now.tm_hour)+':'+str(now.tm_min)+':'+str(now.tm_sec))
+		sendWeather()
+		print("Weather update sent at "+str(now.tm_year)+"-"+str(now.tm_mon)+"-"+str(now.tm_mday)+" "+str(now.tm_hour)+':'+str(now.tm_min)+':'+str(now.tm_sec))
+		
+	if(oldhour != now.tm_hour):		#updates time only on the hour, but doesn't sleep in the meantime because we have to listen
+		sendTime()
+		print("Time update sent at "+str(now.tm_year)+"-"+str(now.tm_mon)+"-"+str(now.tm_mday)+" "+str(now.tm_hour)+':'+str(now.tm_min)+':'+str(now.tm_sec))
+		sendWeather()
+		print("Weather update sent at "+str(now.tm_year)+"-"+str(now.tm_mon)+"-"+str(now.tm_mday)+" "+str(now.tm_hour)+':'+str(now.tm_min)+':'+str(now.tm_sec))
+		oldhour = now.tm_hour

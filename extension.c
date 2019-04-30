@@ -2,7 +2,7 @@
 #include <LiquidCrystal.h>	//for LCD Display
 
 //global variables
-int a,dtemp,hours,minutes,seconds,nminute,nsecond,nhour,nday,nmonth,nyear,wday,dsecond,dminute,dhour;
+int a,dtemp,hours,minutes,seconds,nminute,nsecond,nhour,nday,nmonth,nyear,wday,dsecond,dminute,dhour,asked;
 long int rawtime,zerotime;
 String h,m,s;
 
@@ -27,10 +27,17 @@ void setup()
 	lcd.begin(16, 2);
 	// Print a message to the LCD.
 	Serial.begin(9600);
+	asked=0;
 }
 
 void loop() 
 {
+	//send request for update
+	if(nyear==0 && asked==0)
+	{
+		Serial.write("Give me time");
+		asked=1;
+	}
 	//check for incoming intent
 	if (Serial.available() > 0)
 	{
@@ -39,10 +46,12 @@ void loop()
 		{
 			case 1:
 				updateTime();
+				lcd.begin(16, 2);
 				break;
 				
 			case 2:
 				updateWeather();
+				lcd.begin(16, 2);
 				break;
 			
 		}
